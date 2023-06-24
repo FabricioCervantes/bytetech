@@ -4,53 +4,42 @@ import { PageWrapper } from "./PageWrapper";
 const Form = ({ type, blog, setBlog, submitting, handleSubmit }) => {
   return (
     <PageWrapper>
-      <section className="w-full max-w-full shadow-lg flex p-2 flex-col rounded-md">
-        <h1 className="head_text text-left">
-          <span className="text-2xl">{type} blog</span>
-        </h1>
-        <p className="desc text-left max-w-md">
-          {type} and share amazing prompts with the world, and let your
-          imagination run wild with any AI-powered platform
-        </p>
-
-        <form
-          onSubmit={handleSubmit}
-          className="mt-10 w-full flex flex-col gap-7"
-        >
+      <section className="w-full max-w-full flex p-2 flex-col">
+        <form onSubmit={handleSubmit} className=" w-full flex flex-col gap-2">
           <div className="flex flex-col">
             <label>
-              <span className="font-satoshi font-semibold text-base text-gray-700">
+              <span className="font-satoshi text-4xl font-semibold text-gray-700">
                 Title
               </span>
             </label>
             <input
               value={blog.title}
               onChange={(e) => setBlog({ ...blog, title: e.target.value })}
-              placeholder="Write your post here"
+              placeholder="Write the title of your blog"
               required
-              className="p-2"
+              className="p-2 mt-5 rounded-md bg-transparent"
             />
           </div>
           <label></label>
           <div className="flex flex-col">
             <label>
-              <span className="font-satoshi font-semibold text-base text-gray-700">
-                Your AI Prompt
+              <span className="font-satoshi font-semibold text-4xl text-gray-700">
+                Article
               </span>
             </label>
             <textarea
               value={blog.content}
               onChange={(e) => setBlog({ ...blog, content: e.target.value })}
-              placeholder="Write your post here"
+              placeholder="What do you have to say?"
               required
-              className="h-96 w-full"
+              className="h-96 w-full mt-5 p-3 rounded-xl border-0 bg-transparent"
             />
           </div>
-          <label>
-            <span className="font-satoshi font-semibold text-base text-gray-700">
-              Field of Prompt{" "}
-              <span className="font-normal">
-                (#product, #webdevelopment, #idea, etc.)
+          <label className="flex flex-col">
+            <span className="font-satoshi mt-2 font-semibold text-2xl text-gray-700">
+              Add a tag to your post!{" "}
+              <span className="font-normal text-lg">
+                (#product, #webdevelopment, etc...)
               </span>
             </span>
             <input
@@ -59,20 +48,20 @@ const Form = ({ type, blog, setBlog, submitting, handleSubmit }) => {
               type="text"
               placeholder="#Tag"
               required
-              className=""
+              className="mt-5 rounded-md border-0 bg-transparent"
             />
           </label>
           <input
             onChange={(e) => setBlog({ ...blog, image: e.target.files[0] })}
             type="file"
+            className="mt-2"
           />
 
-          <div className="flex-end mx-3 mb-5 gap-4">
+          <div className="flex justify-end items-center gap-4">
             <Link href="/" className="text-gray-500 text-sm">
               Cancel
             </Link>
-
-            <button type="submit" disabled={submitting} className="btn_sign_up">
+            <button type="submit" disabled={submitting} className="bg-red-500">
               {submitting ? `${type}ing...` : type}
             </button>
           </div>

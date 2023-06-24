@@ -45,7 +45,7 @@ const NewBlogPage = () => {
   };
   return (
     <section className="h-screen flex flex-col items-center">
-      <div className="max-w-4xl w-full">
+      <div className="max-w-3xl w-full">
         <Form
           type="Create"
           blog={blog}

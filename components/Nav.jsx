@@ -55,7 +55,7 @@ const Nav = () => {
                 Sign Out
               </span>
             </button>
-            <Link href="/">
+            <Link href="/profile">
               <Image
                 src={session?.user.image}
                 width={37}
