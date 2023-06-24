@@ -16,12 +16,10 @@ const RootLayout = ({ children }) => {
           <div className="main">
             <div className="gradient" />
           </div>
-          <PageWrapper>
-            <main className="app min-h-screen bg main_text">
-              <Nav />
-              {children}
-            </main>
-          </PageWrapper>
+          <main className="app min-h-screen bg main_text">
+            <Nav />
+            <PageWrapper>{children}</PageWrapper>
+          </main>
         </Provider>
       </body>
     </html>
