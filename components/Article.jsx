@@ -12,10 +12,11 @@ const ArticlePage = ({ post }) => {
           <h1 className="text-3xl md:text-4xl font-bold">{post.title} </h1>
           <Image
             src={post.image}
-            // alt="Article Image"
-            width={100}
-            height={100}
-            className="rounded w-full"
+            width={0}
+            height={0}
+            sizes="100vw"
+            style={{ width: "100%", height: "600px", objectFit: "cover" }} // optional
+            // alt="image"
             unoptimized={true}
           ></Image>
           <div className="flex justify-center">

@@ -2,21 +2,27 @@
 
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Profile from "@/components/Profile";
 
 import React from "react";
 
-const MyProfile = () => {
+const UserProfile = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const userId = searchParams.get("id");
+  const [myUser, setMyUser] = useState([]);
+
   const { data: session } = useSession();
 
   const [myPosts, setMyPosts] = useState([]);
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const response = await fetch(`/api/users/${session?.user.id}/posts`);
+      const response = await fetch(`/api/users/${userId}/posts`);
       const data = await response.json();
+
+      setMyUser(data[0].creator);
 
       setMyPosts(data);
     };
@@ -50,7 +56,7 @@ const MyProfile = () => {
 
   return (
     <Profile
-      name="My"
+      name={myUser}
       desc="Welcome to your profile! Here you can see all of your blogs."
       data={myPosts}
       handleEdit={handleEdit}
@@ -59,4 +65,4 @@ const MyProfile = () => {
   );
 };
 
-export default MyProfile;
+export default UserProfile;

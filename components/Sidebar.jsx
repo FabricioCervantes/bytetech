@@ -28,7 +28,6 @@ const Sidebar = ({ blog }) => {
           <div className="bg-gray-100 main_text rounded-lg flex hover:cursor-pointer">
             <Image
               src={blog.imageUrl}
-              className="rounded-lg"
               width={0}
               height={0}
               sizes="100vw"

@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Avatar } from "flowbite-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const variants = {
   hidden: { opacity: 0 },
@@ -30,9 +31,13 @@ const images = {
 };
 
 const ArticleCard = ({ blog }) => {
+  // console.log(blog.creator._id);
   const router = useRouter();
   const handleArticle = (article) => {
     router.push(`/article/?id=${article}`);
+  };
+  const handleProfile = (profile) => {
+    router.push(`/users/?id=${profile}`);
   };
   return (
     <div>
@@ -43,35 +48,35 @@ const ArticleCard = ({ blog }) => {
           animate="show"
           whileHover={{ scale: 1.05 }}
           // transition={{ duration: 0.25 }}
-          whileTap={{
-            scale: 0.8,
-            borderRadius: "100%",
-          }}
-          onClick={() => handleArticle(blog._id)}
+          // whileTap={{
+          //   scale: 0.8,
+          //   borderRadius: "100%",
+          // }}
         >
           <div className="bg-white shadow-lg main_text md:w-[50vh] rounded-lg hover:cursor-pointer">
-            <Image
-              src={blog.imageUrl}
-              width={0}
-              height={0}
-              sizes="100vw"
-              style={{ width: "100%", height: "300px", objectFit: "cover" }} // optional
-              alt="image"
-            />
-            <motion.div variants={images} className="p-2 flex flex-col gap-2">
-              <div className="flex gap-5">#{blog.tag}</div>
-              <h5 className="text-xl font-bold tracking-tight">
-                <p>{blog.title}</p>
-              </h5>
-              <div className="flex items-center gap-5">
-                <Avatar
-                  alt="profille picture"
-                  img={blog.creator.image}
-                  rounded
-                />
-                <p className="font-bold text-lg">{blog.creator.username}</p>
-              </div>
-            </motion.div>
+            <div onClick={() => handleArticle(blog._id)}>
+              <Image
+                src={blog.imageUrl}
+                width={0}
+                height={0}
+                sizes="100vw"
+                style={{ width: "100%", height: "300px", objectFit: "cover" }} // optional
+                alt="image"
+              />
+              <motion.div variants={images} className="p-2 flex flex-col gap-2">
+                <div className="flex gap-5">#{blog.tag}</div>
+                <h5 className="text-xl font-bold tracking-tight">
+                  <p>{blog.title}</p>
+                </h5>
+              </motion.div>
+            </div>
+            <div
+              onClick={() => handleProfile(blog.creator._id)}
+              className="flex items-center gap-5 p-2 hover:bg-gray-100"
+            >
+              <Avatar alt="profille picture" img={blog.creator.image} rounded />
+              <div className="font-bold text-lg">{blog.creator.username}</div>
+            </div>
           </div>
         </motion.div>
       </PageWrapper>

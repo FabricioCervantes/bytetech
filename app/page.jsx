@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import ArticleCard from "@components/ArticleCard";
 import { motion, AnimatePresence } from "framer-motion";
 import Sidebar from "@components/Sidebar";
+import { PageWrapper } from "@components/PageWrapper";
 
 const ArticleCardList = ({ data }) => {
   return (
@@ -30,7 +31,7 @@ const Home = () => {
   const [allNews, setAllNews] = useState([]);
 
   //divide allnews into 2 arrays
-  const firstHalf = allNews.slice(0, Math.ceil(allNews.length / 2));
+  const firstHalf = allNews.slice(0, Math.ceil(allNews.length));
   const secondHalf = allNews.slice(Math.ceil(allNews.length / 2));
 
   //define an async function to fetch the news data from our API
@@ -59,9 +60,11 @@ const Home = () => {
       </section>
       <section className="md:w-1/3">
         <div className="grid gap-5 p-5">
-          <h1 className="text-center text-4xl font-bold">
-            Top blogs this week
-          </h1>
+          <PageWrapper>
+            <h1 className="text-center text-4xl font-bold">
+              Top blogs this week
+            </h1>
+          </PageWrapper>
           <SidebarList data={secondHalf} />
         </div>
       </section>

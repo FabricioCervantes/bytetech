@@ -55,7 +55,7 @@ const Nav = () => {
                 Sign Out
               </span>
             </button>
-            <Link href="/profile">
+            <Link href={`/users/?id=${session?.user.id}`}>
               <Image
                 src={session?.user.image}
                 width={37}
@@ -114,7 +114,7 @@ const Nav = () => {
               >
                 <motion.div initial={{ x: 50 }} animate={{ x: 0 }}>
                   <Link
-                    href="/profile"
+                    href={`/users/?id=${session?.user.id}`}
                     className="dropdown_link"
                     onClick={() => setToggleDropdown(false)}
                   >
