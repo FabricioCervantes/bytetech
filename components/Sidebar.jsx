@@ -25,18 +25,18 @@ const Sidebar = ({ blog }) => {
           }}
           onClick={() => handleArticle(blog._id)}
         >
-          <div className="card_bg main_text w- rounded-lg flex hover:cursor-pointer">
+          <div className="bg-gray-100 main_text rounded-lg flex hover:cursor-pointer">
             <Image
               src={blog.imageUrl}
               className="rounded-lg"
               width={0}
               height={0}
               sizes="100vw"
-              style={{ width: "100%", height: "auto" }} // optional
+              style={{ width: "100px", height: "auto", objectFit: "cover" }} // optional
               alt="image"
             />
             <motion.div className="p-2 flex flex-col gap-2">
-              <h5 className="text-xl font-bold tracking-tight">
+              <h5 className="text-lg font-bold tracking-tight">
                 <p>{blog.title}</p>
               </h5>
               <div className="flex items-center gap-5">

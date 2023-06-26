@@ -49,12 +49,13 @@ const ArticleCard = ({ blog }) => {
           }}
           onClick={() => handleArticle(blog._id)}
         >
-          <div className="card_bg main_text md:w-[50vh] rounded-lg hover:cursor-pointer">
+          <div className="bg-white shadow-lg main_text md:w-[50vh] rounded-lg hover:cursor-pointer">
             <Image
               src={blog.imageUrl}
-              className="rounded-lg object-contain"
-              width={450}
-              height={400}
+              width={0}
+              height={0}
+              sizes="100vw"
+              style={{ width: "100%", height: "300px", objectFit: "cover" }} // optional
               alt="image"
             />
             <motion.div variants={images} className="p-2 flex flex-col gap-2">
