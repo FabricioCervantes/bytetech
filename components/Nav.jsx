@@ -36,7 +36,7 @@ const Nav = () => {
         {session?.user ? (
           <div className="flex md:gap-10 gap-5 items-center">
             <Link
-              href="/create-news"
+              href="/create-blog"
               className="rounded-md px-3.5 py-2 m-1 overflow-hidden relative group cursor-pointer border-2 font-medium border-indigo-600 bg-indigo-600 text-indigo-600 text-white"
             >
               <span className="absolute w-64 h-0 transition-all duration-300 origin-center rotate-45 -translate-x-20 bg-white top-1/2 group-hover:h-64 group-hover:-translate-y-32 ease"></span>
@@ -123,7 +123,7 @@ const Nav = () => {
                 </motion.div>
                 <motion.div initial={{ x: 50 }} animate={{ x: 0 }}>
                   <Link
-                    href="/create-news"
+                    href="/create-blog"
                     className="dropdown_link"
                     onClick={() => setToggleDropdown(false)}
                   >

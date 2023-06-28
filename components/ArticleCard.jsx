@@ -30,7 +30,7 @@ const images = {
   },
 };
 
-const ArticleCard = ({ blog }) => {
+const ArticleCard = ({ blog, edit }) => {
   // console.log(blog.creator._id);
   const router = useRouter();
   const handleArticle = (article) => {
@@ -39,6 +39,27 @@ const ArticleCard = ({ blog }) => {
   const handleProfile = (profile) => {
     router.push(`/users/?id=${profile}`);
   };
+
+  const handleDelete = async (post) => {
+    const hasConfirmed = confirm(
+      "Are you sure you want to delete this prompt?"
+    );
+
+    if (hasConfirmed) {
+      try {
+        await fetch(`/api/news/${blog._id}`, {
+          method: "DELETE",
+        });
+
+        // const filteredPosts = myPosts.filter((item) => item._id !== post._id);
+
+        // setMyPosts(filteredPosts);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
   return (
     <div>
       <PageWrapper>
@@ -77,6 +98,21 @@ const ArticleCard = ({ blog }) => {
               <Avatar alt="profille picture" img={blog.creator.image} rounded />
               <div className="font-bold text-lg">{blog.creator.username}</div>
             </div>
+            {edit && ( //if user is creator of blog, show edit and delete buttons}
+              <div className="flex justify-end gap-5 p-2">
+                <Link href={`/update-blog?id=${blog._id}`}>
+                  <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    Edit
+                  </button>
+                </Link>
+                <button
+                  onClick={() => handleDelete(blog._id)}
+                  className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                >
+                  Delete
+                </button>
+              </div>
+            )}
           </div>
         </motion.div>
       </PageWrapper>

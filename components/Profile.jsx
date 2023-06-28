@@ -10,6 +10,16 @@ import { PageWrapper } from "./PageWrapper";
 const Profile = ({ name, desc, data, handleEdit, handleDelete }) => {
   //get current user info
   const { data: session } = useSession();
+
+  //check if user logged is also the creator of the blog
+  const isCreator = (blog) => {
+    if (session?.user.id === blog.creator._id) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   //validate if user is logged in
   if (!session) {
     return (
@@ -48,7 +58,7 @@ const Profile = ({ name, desc, data, handleEdit, handleDelete }) => {
         </PageWrapper>
         <div className="grid md:grid-cols-3 gap-5">
           {data.map((blog) => (
-            <ArticleCard key={blog._id} blog={blog} />
+            <ArticleCard key={blog._id} blog={blog} edit={isCreator(blog)} />
           ))}
         </div>
       </section>
