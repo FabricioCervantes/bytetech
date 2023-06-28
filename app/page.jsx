@@ -102,7 +102,7 @@ const Home = () => {
           <Test data={secondHalfFirstFour} />
         </div>
       </section>
-      <div className="flex">
+      <div className="md:flex">
         <section className="md:w-2/3">
           <div className="grid md:grid-cols-2 gap-5 p-5">
             <ArticleCardList data={secondHalfFirstFour} />
@@ -122,13 +122,13 @@ const Home = () => {
       <section className="p-5 w-full flex justify-center">
         <div className="max-w-7xl">
           <div className="rounded-md">
-            <div className="flex">
+            <div className="md:flex">
               <img
                 src="https://images.unsplash.com/photo-1541167760496-1628856ab772?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2237&q=80"
                 alt=""
                 className="h-[300px]"
               />
-              <div className="p-5 text-center flex flex-col justify-between">
+              <div className="p-5 text-center flex flex-col gap-5 justify-between">
                 <h1 className="text-4xl font-bold">The world is a vampire</h1>
                 <p className="text-justify">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Est

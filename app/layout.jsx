@@ -18,7 +18,7 @@ const RootLayout = ({ children }) => {
           </div>
           <main className="app min-h-screen bg main_text">
             <Nav />
-            <PageWrapper>{children}</PageWrapper>
+            {children}
           </main>
         </Provider>
       </body>
