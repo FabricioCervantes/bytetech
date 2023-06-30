@@ -2,11 +2,9 @@
 
 import { useEffect, useState } from "react";
 import ArticleCard from "@components/ArticleCard";
-import { motion, AnimatePresence } from "framer-motion";
 import Sidebar from "@components/Sidebar";
 import { PageWrapper } from "@components/PageWrapper";
-import Image from "next/image";
-import { Avatar } from "flowbite-react";
+import BottomArticle from "@components/BottomArticle";
 
 const ArticleCardList = ({ data }) => {
   return (
@@ -28,7 +26,27 @@ const SidebarList = ({ data }) => {
   );
 };
 
-const Test = ({ data }) => {
+const FrontTest = ({ data }) => {
+  return (
+    <>
+      {data.map((blog) => (
+        <div class="relative w-full md:max-w-7xl">
+          <img
+            className="w-full md:max-w-7xl brightness-50 h-[650px] object-cover object-top"
+            src={blog.imageUrl}
+          />
+          <div class="absolute bottom-0 left-0 right-0 px-4 py-2">
+            <h3 class="text-5xl text-white text-center font-bold">
+              {blog.title}
+            </h3>
+          </div>
+        </div>
+      ))}
+    </>
+  );
+};
+
+const FrontPage = ({ data }) => {
   return (
     <>
       {data.map((blog) => (
@@ -48,22 +66,30 @@ const Test = ({ data }) => {
   );
 };
 
+const SingleArticle = ({ data }) => {
+  console.log(data);
+  return (
+    <>
+      {data.map((blog) => (
+        <BottomArticle key={blog._id} blog={blog}></BottomArticle>
+      ))}
+    </>
+  );
+};
+
 const Home = () => {
   //define a state variable for all news
   const [allNews, setAllNews] = useState([]);
+  // Search states
+  const [searchText, setSearchText] = useState("");
+  const [searchTimeout, setSearchTimeout] = useState(null);
+  const [searchedResults, setSearchedResults] = useState([]);
 
-  //divide allnews into 2 arrays
-  const firstHalf = allNews.slice(0, Math.ceil(allNews.length));
-  const secondHalf = allNews.slice(Math.ceil(allNews.length / 2));
-
-  //take last 4 of the first half
-  const firstHalfLastFour = firstHalf.slice(-4);
-
-  //take first item of the second half
-  const secondHalfFirstItem = secondHalf.slice(0, 1);
-
-  //take only first 4 of the second half
-  const secondHalfFirstFour = secondHalf.slice(0, 4);
+  const main = allNews.slice(4, 5);
+  const topArticles = allNews.slice(0, 4);
+  const cardArticles = allNews.slice(5, 9);
+  const sidebarArticles = allNews.slice(9, 13);
+  const bottomArticle = allNews.slice(-1);
 
   //define an async function to fetch the news data from our API
   const fetchNews = async () => {
@@ -77,35 +103,60 @@ const Home = () => {
     setAllNews(data);
   };
 
+  const filterBlogs = (searchtext) => {
+    const regex = new RegExp(searchtext, "i"); // 'i' flag for case-insensitive search
+    return allNews.filter(
+      (item) =>
+        regex.test(item.creator.username) ||
+        regex.test(item.tag) ||
+        regex.test(item.title)
+    );
+  };
+
+  const handleSearchChange = (e) => {
+    clearTimeout(searchTimeout);
+    setSearchText(e.target.value);
+
+    // debounce method
+    setSearchTimeout(
+      setTimeout(() => {
+        const searchResult = filterBlogs(e.target.value);
+        setSearchedResults(searchResult);
+      }, 500)
+    );
+  };
+
   //use the useEffect hook to run our fetchNews function when the page loads
   useEffect(() => {
     fetchNews();
   }, []);
 
-  console.log(secondHalf[0]);
-
   return (
     <div className="md:flex flex-col">
       <section className="md:p-5 flex flex-col items-center bg-black justify-center">
-        <div class="relative w-full md:max-w-7xl">
-          <img
-            className="w-full md:max-w-7xl brightness-50 h-[650px] object-cover object-top"
-            src="https://www.kindacode.com/wp-content/uploads/2022/06/big-boss.jpeg"
-          />
-          <div class="absolute bottom-0 left-0 right-0 px-4 py-2">
-            <h3 class="text-5xl text-white text-center font-bold">
-              Some fucking text here
-            </h3>
-          </div>
-        </div>
+        <FrontTest data={main} />
         <div className="grid md:grid-cols-4 gap-5 w-full max-w-7xl mt-5">
-          <Test data={secondHalfFirstFour} />
+          <FrontPage data={topArticles} />
         </div>
       </section>
       <div className="md:flex">
         <section className="md:w-2/3">
+          <form className="px-5 pt-5 flex justify-center">
+            <input
+              type="text"
+              value={searchText}
+              onChange={handleSearchChange}
+              className="text-md w-96 rounded-md border-white hidden md:block"
+              placeholder="Search..."
+            />
+          </form>
           <div className="grid md:grid-cols-2 gap-5 p-5">
-            <ArticleCardList data={secondHalfFirstFour} />
+            {/* All Prompts */}
+            {searchText ? (
+              <ArticleCardList data={searchedResults} />
+            ) : (
+              <ArticleCardList data={cardArticles} />
+            )}
           </div>
         </section>
         <section className="md:w-1/3">
@@ -115,44 +166,12 @@ const Home = () => {
                 Top blogs this week
               </h1>
             </PageWrapper>
-            <SidebarList data={firstHalfLastFour} />
+            <SidebarList data={sidebarArticles} />
           </div>
         </section>
       </div>
       <section className="p-5 w-full flex justify-center">
-        <div className="max-w-7xl">
-          <div className="rounded-md">
-            <div className="md:flex">
-              <img
-                src="https://images.unsplash.com/photo-1541167760496-1628856ab772?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2237&q=80"
-                alt=""
-                className="h-[300px]"
-              />
-              <div className="p-5 text-center flex flex-col gap-5 justify-between">
-                <h1 className="text-4xl font-bold">The world is a vampire</h1>
-                <p className="text-justify">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Est
-                  eveniet, quibusdam aliquam dolor officiis nihil alias
-                  incidunt. Non velit corporis ex maxime. Facere tenetur quod ad
-                  nostrum tempora illum natus, nulla iste tempore quam, ut
-                  beatae assumenda vel aspernatur repellat! Lorem ipsum dolor
-                  sit amet consectetur, adipisicing elit. Ipsa, asperiores!
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste
-                  illum voluptates earum reiciendis nobis, voluptatibus harum!
-                  Exercitationem doloribus omnis explicabo.
-                </p>
-                <div className="flex gap-5 items-center justify-end">
-                  <Avatar
-                    alt="profille picture"
-                    img="https://images.unsplash.com/photo-1541167760496-1628856ab772?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2237&q=80"
-                    rounded
-                  />
-                  <div className="font-bold text-lg">Fabricio Cervantes</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <SingleArticle data={bottomArticle}></SingleArticle>
       </section>
     </div>
   );

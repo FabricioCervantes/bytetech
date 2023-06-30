@@ -31,3 +31,14 @@
 .dropdown_link {
   @apply text-sm text-gray-700 hover:text-gray-500 font-medium;
 }
+
+.action_btn {
+  @apply bg-[#222] rounded box-border text-white cursor-pointer inline-block text-base font-bold leading-normal max-w-none min-h-[44px] min-w-[10px] overflow-hidden relative text-center normal-case select-none touch-manipulation w-full m-0 pt-[9px] pb-2 px-5 border-none;
+  font-family: "Farfetch Basis", "Helvetica Neue", Arial, sans-serif;
+  outline: none;
+  -webkit-user-select: none;
+}
+.action_btn:hover,
+.action_btn:focus {
+  @apply opacity-75;
+}

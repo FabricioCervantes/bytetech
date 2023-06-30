@@ -23,11 +23,6 @@ const Nav = () => {
         <Link href="/">
           <h1 className="logo">ByteTech</h1>
         </Link>
-        <input
-          type="text"
-          className="text-xl rounded-md border-white hidden md:block"
-          placeholder="Search..."
-        />
       </div>
 
       {/* Desktop */}

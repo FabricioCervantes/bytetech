@@ -2,6 +2,7 @@ import Nav from "@components/Nav";
 import "@styles/globals.css";
 import Provider from "@components/Provider";
 import { PageWrapper } from "@components/PageWrapper";
+import Footer from "@components/Footer";
 
 export const metadata = {
   title: "ByteTech",
@@ -19,6 +20,7 @@ const RootLayout = ({ children }) => {
           <main className="app min-h-screen bg main_text">
             <Nav />
             <PageWrapper>{children}</PageWrapper>
+            <Footer />
           </main>
         </Provider>
       </body>

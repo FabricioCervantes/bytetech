@@ -85,7 +85,7 @@ const ArticleCard = ({ blog, edit }) => {
                 alt="image"
               />
               <motion.div variants={images} className="p-2 flex flex-col gap-2">
-                <div className="flex gap-5">#{blog.tag}</div>
+                <div className="flex gap-5">{blog.tag}</div>
                 <h5 className="text-xl font-bold tracking-tight">
                   <p>{blog.title}</p>
                 </h5>
@@ -101,9 +101,7 @@ const ArticleCard = ({ blog, edit }) => {
             {edit && ( //if user is creator of blog, show edit and delete buttons}
               <div className="flex justify-end gap-5 p-2">
                 <Link href={`/update-blog?id=${blog._id}`}>
-                  <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                    Edit
-                  </button>
+                  <button className="action_btn">Edit</button>
                 </Link>
                 <button
                   onClick={() => handleDelete(blog._id)}
