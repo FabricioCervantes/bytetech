@@ -19,21 +19,7 @@ const variants = {
   },
 };
 
-const images = {
-  hidden: {
-    opacity: 0,
-    y: 30,
-  },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 1,
-    },
-  },
-};
-
-const ArticleCard = ({ blog, edit }) => {
+const ArticleCard = ({ blog, edit, layout }) => {
   const [searchText, setSearchText] = useState("");
   const [searchTimeout, setSearchTimeout] = useState(null);
   const [searchedResults, setSearchedResults] = useState([]);
@@ -156,24 +142,39 @@ const ArticleCard = ({ blog, edit }) => {
   };
 
   return (
-    <section className="md:w-2/3">
-      <form className="px-5 pt-5 flex justify-center">
-        <input
-          type="text"
-          value={searchText}
-          onChange={handleSearchChange}
-          className="text-md w-96 rounded-md border-white"
-          placeholder="Search..."
-        />
-      </form>
-      <div className="grid md:grid-cols-2 gap-5 p-5">
-        {searchText ? (
-          <ArticleCardList data={searchedResults} />
-        ) : (
-          <ArticleCardList data={blog.slice(5, 9)} />
-        )}
-      </div>
-    </section>
+    <>
+      {layout === "profile" && (
+        <section>
+          <div className="grid md:grid-cols-3 gap-5 p-5">
+            {searchText ? (
+              <ArticleCardList data={searchedResults} />
+            ) : (
+              <ArticleCardList data={blog} />
+            )}
+          </div>
+        </section>
+      )}
+      {layout === "main" && (
+        <section className="md:w-2/3">
+          <form className="px-5 pt-5 flex justify-center">
+            <input
+              type="text"
+              value={searchText}
+              onChange={handleSearchChange}
+              className="text-md w-96 rounded-md border-white"
+              placeholder="Search..."
+            />
+          </form>
+          <div className="grid md:grid-cols-2 gap-5 p-5">
+            {searchText ? (
+              <ArticleCardList data={searchedResults} />
+            ) : (
+              <ArticleCardList data={blog} />
+            )}
+          </div>
+        </section>
+      )}
+    </>
   );
 };
 

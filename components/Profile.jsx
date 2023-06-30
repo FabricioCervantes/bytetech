@@ -1,9 +1,7 @@
 import ArticleCard from "./ArticleCard";
 
 //import
-import { useState, useEffect } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { signIn, signOut, useSession, getProviders } from "next-auth/react";
 import { PageWrapper } from "./PageWrapper";
 
@@ -13,7 +11,9 @@ const Profile = ({ name, desc, data, handleEdit, handleDelete }) => {
 
   //check if user logged is also the creator of the blog
   const isCreator = (blog) => {
-    if (session?.user.id === blog.creator._id) {
+    let creatorId = "";
+    blog.slice(-1).map((item) => (creatorId = item.creator._id));
+    if (session?.user.id === creatorId) {
       return true;
     } else {
       return false;
@@ -56,11 +56,8 @@ const Profile = ({ name, desc, data, handleEdit, handleDelete }) => {
             <p className="text-center text-xl mb-5 mt-2">{desc}</p>
           </div>
         </PageWrapper>
-        <div className="grid md:grid-cols-3 gap-5">
-          {data.map((blog) => (
-            <ArticleCard key={blog._id} blog={blog} edit={isCreator(blog)} />
-          ))}
-        </div>
+
+        <ArticleCard blog={data} layout="profile" edit={isCreator(data)} />
       </section>
     );
   }

@@ -5,7 +5,9 @@ import FirstPost from "@components/FirstPost";
 import FrontPage from "@components/FrontPage";
 
 const fetchPosts = () => {
-  return fetch("http://localhost:3000/api/news").then((res) => res.json());
+  return fetch("http://bytetechblog.netlify.app/api/news").then((res) =>
+    res.json()
+  );
 };
 
 const SingleArticle = ({ data }) => {
@@ -30,7 +32,7 @@ export default async function Home() {
         </div>
       </section>
       <div className="md:flex">
-        <ArticleCard blog={allNews} />
+        <ArticleCard blog={allNews} layout="main" />
         <Sidebar blog={allNews} />
       </div>
       <section className="p-5 w-full flex justify-center">
