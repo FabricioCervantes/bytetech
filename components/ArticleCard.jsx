@@ -169,7 +169,7 @@ const ArticleCard = ({ blog, edit, layout }) => {
             {searchText ? (
               <ArticleCardList data={searchedResults} />
             ) : (
-              <ArticleCardList data={blog} />
+              <ArticleCardList data={blog.slice(5, 9)} />
             )}
           </div>
         </section>
